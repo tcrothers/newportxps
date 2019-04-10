@@ -453,7 +453,7 @@ class NewportXPS:
             min_jerktime = jt0_cur
         if max_jerktime is None:
             max_jerktime = jt1_cur
-        self._xps.PositionerSGammaParametersGet(self._sid, stage, vel, accl,
+        self._xps.PositionerSGammaParametersSet(self._sid, stage, velo, accl,
                                                 min_jerktime, max_jerktime)
 
     @withConnectedXPS
@@ -832,7 +832,7 @@ class NewportXPS:
         f.close()
         nlines = len(buffer.split('\n')) - 1
         if verbose:
-            print('Wrote %i lines, %i bytes to %s' % (nlines, len(buff), fname))
+            print('Wrote %i lines, %i bytes to %s' % (nlines, len(buffer), fname))
         if set_idle_when_done:
             self.traj_state = IDLE
 
@@ -893,6 +893,7 @@ class NewportXPS:
             ramp_template += ", %({0}ramp)f, %({0}velo)f".format(positioner)
             move_template += ", %({0}dist)f, %({0}velo)f".format(positioner)
             down_template += ", %({0}ramp)f, %({0}zero)f".format(positioner)
+import sys
 
         ramp_str = ramp_template % ramp_attr
         down_str = down_template % down_attr

@@ -1,6 +1,6 @@
 # XPS Python class
 #
-#  for XPS-C8 Firmware V2.6.x
+#  for XPS-C8 Firmware V2.7, 3.6
 #
 #  See Programmer's manual for more information on XPS function calls
 #
@@ -12,9 +12,7 @@
 #       if there is not a valid socket.
 # made many return values "consistent".
 
-import sys
 import socket
-import six
 from collections import OrderedDict
 
 from .utils import bytes2str
@@ -64,7 +62,7 @@ class XPS:
     def __sendAndReceive (self, socketId, command):
         # print("SEND REC ", command, type(command))
         try:
-            XPS.__sockets[socketId].send(six.b(command))
+            XPS.__sockets[socketId].send(command)
             ret = bytes2str(XPS.__sockets[socketId].recv(1024))
             while (ret.find(',EndOfAPI') == -1):
                 ret += bytes2str(XPS.__sockets[socketId].recv(1024))
